@@ -11,6 +11,12 @@ const Oscillator = ({audioCTX}) => {
     const [gainValue, setGainValue] = useState(0.3)
     const [isPlaying, setIsPlaying] = useState(false)
     const handleFreqChange = freq => {
+        if(freq > 22000){
+            freq = 22000
+        }
+        if(freq < 20){
+            freq = 20
+        }
         setFreq(freq)
     }
     const handleGainChange = gainValue => {
@@ -19,6 +25,7 @@ const Oscillator = ({audioCTX}) => {
     }
     const handleWavFormChange = newWavForm => {
         osc.disconnect()
+        noiseNode.disconnect()
         setOSC(audioCTX.createOscillator())
         setIsPlaying(false)
         setWavForm(newWavForm)
@@ -92,18 +99,17 @@ const Oscillator = ({audioCTX}) => {
             pinkNoiseGenerator()
         }
         gainNode.connect(audioCTX.destination)
+        setIsPlaying(true)
     }
     const startOscillator = () => {
         gainNode.gain.linearRampToValueAtTime(gainValue, audioCTX.currentTime + 0.2)
         if(gainNode && osc){
-            if(wavForm === "white" || wavForm === "pink"){
-                return playNoise()
-            }
             playSimpleOscType()
         }
     }
     const stopOscillator = () => {
         gainNode.gain.linearRampToValueAtTime(0.001, audioCTX.currentTime + 0.2)
+        noiseNode.disconnect()
         if(wavForm === "white" || wavForm === "pink") return noiseNode.disconnect()
         setTimeout(() => {
             osc.disconnect()
@@ -118,13 +124,29 @@ const Oscillator = ({audioCTX}) => {
             )
         })
     }
-    const buttonText = isPlaying ? "STOP" : "START"
+    const buttonText = isPlaying ? "◻" : "►"
     const checkIfInitialized = () => {
         if(!osc || !gainNode) return null
         return(
             <div className="util">
+                <div className="utilControl">
+                    <div className="title">OSC</div>
+                    <button 
+                    className="btn play-stop-btn" 
+                    onClick={() => {
+                        if(wavForm === "white" || wavForm === "pink"){
+                            playNoise()
+                        } else {
+                            oscStartClickHandler()
+                        }
+                    }}
+                    >{buttonText}</button>
+                </div>
                 <div className="utilControl freqControl">
-                    <label htmlFor="freqInput">Frequncy:</label>
+                    <div className="play-stop-wrapper">
+                    
+                    </div>
+                    <label htmlFor="freqInput">Frequncy: </label>
                     <input 
                     className="freqInput"
                     id="freqInput"
@@ -137,9 +159,10 @@ const Oscillator = ({audioCTX}) => {
                     />
                 </div>
                 <div className="utilControl gainControl">
-                    <label htmlFor="gainInput">Gain</label>
+                    <label htmlFor="gainInput">Gain:</label>
                     <input 
                     className="gain-input"
+                    id="gain-input"
                     type="range" 
                     min={0} 
                     max={100} 
@@ -151,12 +174,7 @@ const Oscillator = ({audioCTX}) => {
                 <div className="utilControl waveformsControl">
                     {renderWaveFormsList()}                                    
                 </div>
-                <div className="play-stop-wrapper">
-                <button 
-                className="btn play-stop-btn" 
-                onClick={() => {oscStartClickHandler()}}
-                >{buttonText}</button>
-                </div>
+                
             </div>
         )
     }

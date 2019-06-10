@@ -1,14 +1,14 @@
 import React from 'react'
 import './UtilsGrid.css'
 import Oscillator from '../Oscillator/Oscillator'
+import Player from '../Player/Player'
 
 const UtilsGrid = ({audioCTX}) => {
     return (
         <>
-        <h4>UtilsGrid</h4>
         <div className="utilsGrid">
             <Oscillator audioCTX={audioCTX}/>
-            <Oscillator audioCTX={audioCTX}/>
+            <Player audioCTX={audioCTX}/>
             <Oscillator audioCTX={audioCTX}/>
             <Oscillator audioCTX={audioCTX}/>
         </div>

@@ -1,6 +1,7 @@
 import React, {useState, useEffect} from 'react'
 import './App.css'
 import StartScreen from '../StartScreen/StartScreen'
+import Details from '../Details/Details'
 import UtilsGrid from '../UtilsGrid/UtilsGrid'
 
 const App = () => {
@@ -19,7 +20,13 @@ const App = () => {
         if(!audioCTX){
             return <StartScreen initAudioContext={initAudioContext}/>
         }
-        return <UtilsGrid audioCTX={audioCTX}/>
+        return (
+            <>
+            <Details audioCTX={audioCTX}/>
+            <UtilsGrid audioCTX={audioCTX}/>
+            </>
+        )
+            
     }
     const checkForAudioContext = () => {
         if(window.AudioContext || window.webkitAudioContext){
@@ -30,10 +37,8 @@ const App = () => {
     useEffect(() => {
         checkIfStandAlone()
     }, [])
-    console.log(audioCTX)
     return(
         <>
-            <h1>Hello from React</h1>
             {checkForAudioContext()}
         </>
     )

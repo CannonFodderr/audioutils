@@ -6,4 +6,20 @@
 
 .util{
     border: 1px solid #000;
+    padding: 1vh 1vw;
+}
+@media only screen and (max-width: 800px) {
+    .utilsGrid {
+        grid-template-columns: 1fr 1fr 1fr;
+    }
+}
+@media only screen and (max-width: 600px) {
+    .utilsGrid {
+        grid-template-columns: 1fr 1fr;
+    }
+}
+@media only screen and (max-width: 360px) {
+    .utilsGrid {
+        grid-template-columns: 1fr;
+    }
 }
