@@ -8,3 +8,9 @@
     -moz-border-radius: 0;
     border-radius: 3px;
 }
+
+.player-contols{
+    display: grid;
+    gap: 1vh;
+    grid-template-columns: 1fr 1fr;
+}

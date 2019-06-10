@@ -3,6 +3,8 @@ import './Player.css'
 
 const Player = ({audioCTX}) => {
     const [audioSource, setAudioSource] = useState(null)
+    const [isLooping, setIsLooping] = useState(false)
+    const [isMuted, setIsMuted] = useState(false)
     const filePickerRef = useRef(null)
     const audioPlayerRef = useRef(null)
     const renderAudioPlayer = () => {
@@ -10,9 +12,11 @@ const Player = ({audioCTX}) => {
         controls={true} 
         ref={audioPlayerRef} 
         className="audio-player"
+        loop={isLooping}
+        muted={isMuted}
         />
         return (
-            <audio controls={true} ref={audioPlayerRef} className="audio-player" src={URL.createObjectURL(audioSource)} loop={false} />
+            <audio controls={true} ref={audioPlayerRef} className="audio-player" src={URL.createObjectURL(audioSource)} loop={isLooping} muted={isMuted}/>
         )
     }
     const handleLoadButtonClick = () => {
@@ -36,6 +40,22 @@ const Player = ({audioCTX}) => {
         onClick={() => {handleFileUnload()}}
         >UNLOAD</button>
     }
+    const handleLoopChange = () => {
+        setIsLooping(!isLooping)
+    }
+    const handleMuteChange = () => {
+        setIsMuted(!isMuted)
+    }
+    const renderControls = () => {
+        const loopClass = isLooping ? "btn btn-selected btn-loop" : "btn btn-loop"
+        const muteClass = isMuted ? "btn btn-selected btn-mute" : "btn btn-mute"
+        return(
+            <div className="utilControl player-contols">
+                <button className={loopClass} onClick={() => handleLoopChange()}>Loop</button>
+                <button className={muteClass} onClick={() => handleMuteChange()}>Mute</button>
+            </div>
+        )
+    }
     return(
         <>
             <div className="util">
@@ -51,6 +71,7 @@ const Player = ({audioCTX}) => {
                     onChange={() => {handleFileLoad()}}
                     />
                 </div>
+                {renderControls()}
             </div>
         </>
     )

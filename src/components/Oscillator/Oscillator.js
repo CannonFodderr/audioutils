@@ -144,9 +144,6 @@ const Oscillator = ({audioCTX}) => {
                     >{buttonText}</button>
                 </div>
                 <div className="utilControl freqControl">
-                    <div className="play-stop-wrapper">
-                    
-                    </div>
                     <label htmlFor="freqInput">Frequncy: </label>
                     <input 
                     className="freqInput"
