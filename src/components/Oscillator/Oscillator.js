@@ -17,6 +17,7 @@ const Oscillator = ({audioCTX}) => {
         if(freq < 20){
             freq = 20
         }
+        osc.frequency.value = freq
         setFreq(freq)
     }
     const handleGainChange = gainValue => {
@@ -157,11 +158,16 @@ const Oscillator = ({audioCTX}) => {
                     value={freq} 
                     onChange={(e) => {handleFreqChange(e.target.value)}}
                     />
+                    <input type="range" min={20} max={22000} value={freq}
+                    className="input freq-input"
+                    step={1}
+                    onChange={(e) => {handleFreqChange(e.target.value)}}
+                    />
                 </div>
                 <div className="utilControl gainControl">
                     <label htmlFor="gainInput">Gain:</label>
                     <input 
-                    className="gain-input"
+                    className="input gain-input"
                     id="gain-input"
                     type="range" 
                     min={0} 
