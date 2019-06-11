@@ -1,7 +1,7 @@
 import React, {useState, useRef, useEffect} from 'react'
 import './Player.css'
 
-const Player = () => {
+const Player = ({audioCTX}) => {
     const [currentTime, setCurrentTIme] = useState(0)
     const [playerGain, setPlayerGain] = useState(0.5)
     const [audioSource, setAudioSource] = useState(null)
@@ -11,12 +11,17 @@ const Player = () => {
     const [isPlaying, setIsPlaying] = useState(false)
     const filePickerRef = useRef(null)
     const audioPlayerRef = useRef(null)
+    const seekerRef = useRef(null)
     const handleMetaData = () => {
         if(!audioDuration){
             setAudioDuration(audioPlayerRef.current.duration)
         }
     }
     const handlePlay = () => {
+        if(isPlaying){
+            setCurrentTIme(audioPlayerRef.current.currentTime)
+            setPlayerGain(audioPlayerRef.current.volume)
+        }
         setIsPlaying(!isPlaying)
     }
     const renderAudioPlayer = () => {
@@ -36,6 +41,8 @@ const Player = () => {
         filePickerRef.current.click()
     }
     const handleFileUnload = () => {
+        filePickerRef.current.value = ""
+        audioPlayerRef.current.currentTime = 0
         setIsPlaying(false)
         setAudioSource(null)
         setAudioDuration(null)
@@ -62,7 +69,7 @@ const Player = () => {
     const renderControls = () => {
         if(!audioSource || !audioDuration) return null;
         const loopClass = isLooping ? "btn btn-selected btn-loop" : "btn btn-loop"
-        const muteClass = isMuted ? "btn btn-selected btn-mute" : "btn btn-mute"
+        const muteClass = audioPlayerRef.current.muted ? "btn btn-selected btn-mute" : "btn btn-mute"
         const playClass = isPlaying ? "btn btn-selected btn-play" : "btn btn-play"
         const playText = !isPlaying ? "PLAY" : "STOP"
         return(
@@ -74,8 +81,13 @@ const Player = () => {
         )
     }
     const handleSeeking = newTime => {
-        audioPlayerRef.current.currentTime = newTime
-        setCurrentTIme(audioPlayerRef.current.currentTime)
+        if(!isPlaying){
+            audioPlayerRef.current.currentTime = newTime
+        } else {
+            audioPlayerRef.current.currentTime = newTime
+            setCurrentTIme(audioPlayerRef.current.currentTime)
+        }
+        
     }
     const renderRangeSeeker = () => {
         if(!audioSource || !audioDuration) return null
@@ -83,6 +95,7 @@ const Player = () => {
             <div>
                 <label htmlFor="seeker-input">Start</label>
                 <input 
+                ref={seekerRef}
                 type="range" 
                 min={0} 
                 max={audioDuration}
@@ -98,7 +111,9 @@ const Player = () => {
     }
     const handleGainChange = newGain => {
         audioPlayerRef.current.volume = newGain
-        
+        if(!isPlaying){
+            setPlayerGain(newGain)
+        }
     }
     const renderPlayerGain = () => {
         if(!audioSource || !audioDuration) return null
@@ -111,7 +126,6 @@ const Player = () => {
                 defaultValue={50}
                 className="input gain-input"
                 onChange={(e) => handleGainChange(e.target.value / 100)}
-                onMouseUp={() => setPlayerGain(audioPlayerRef.current.volume)}
                 />
             </div>
 
@@ -119,11 +133,16 @@ const Player = () => {
     }
     useEffect(() => {
         if(isPlaying){
+            seekerRef.current.currentTime = currentTime
             audioPlayerRef.current.currentTime = currentTime
             audioPlayerRef.current.volume = playerGain
-            audioPlayerRef.current.loop = isLooping
-            audioPlayerRef.current.muted = isMuted
             audioPlayerRef.current.play()
+            let timer = setInterval(() => {
+                seekerRef.current.value = audioPlayerRef.current.currentTime
+            }, 1000)
+            return () => {
+                clearInterval(timer)
+            }
         } else {
             audioPlayerRef.current.currentTime = currentTime
             audioPlayerRef.current.volume = playerGain
@@ -131,7 +150,7 @@ const Player = () => {
             audioPlayerRef.current.muted = isMuted
             audioPlayerRef.current.pause()
         }
-    })
+    }, [isPlaying, currentTime, isLooping, isMuted])
     return(
         <>
             <div className="util">
