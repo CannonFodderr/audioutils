@@ -1,12 +1,12 @@
-.details-util{
+.util.details-util{
     display: grid;
     gap: 1vh;
     grid-template-columns: 1fr 1fr;
     place-items: center center;
     text-align: center;
     margin: 1vh 0;
-    background: #000;
-    color: #fff;
+    background: #222120;
+    color: #EFEEED;
 }
 .detail{
     display: inline-block;

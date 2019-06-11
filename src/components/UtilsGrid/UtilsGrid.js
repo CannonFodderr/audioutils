@@ -8,7 +8,7 @@ const UtilsGrid = ({audioCTX}) => {
         <>
         <div className="utilsGrid">
             <Oscillator audioCTX={audioCTX}/>
-            <Player audioCTX={audioCTX}/>
+            <Player />
             <Oscillator audioCTX={audioCTX}/>
             <Oscillator audioCTX={audioCTX}/>
         </div>

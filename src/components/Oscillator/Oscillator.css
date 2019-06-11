@@ -9,18 +9,18 @@
     display: inline-block;
 }
 .play-stop-btn{
-    margin: 0 auto;
-    /* width: 100%; */
+    /* margin: 0 auto; */
     display: inline-block;
 }
 
 .freqControl{
     width: 100%;
+    background: #EFEEED;
 }
 .freqInput{
     border: none;
     width: 100%;
-    border-bottom: 1px solid #000;
+    border-bottom: 1px solid #222120;
     outline: none;
 }
 
@@ -42,7 +42,7 @@
     width: 25px;
     height: 25px;
     border-radius: 50%; 
-    background: #000;
+    background: #222120;
     cursor: pointer;
   }
   
@@ -50,6 +50,6 @@
     width: 25px;
     height: 25px;
     border-radius: 50%;
-    background: #4CAF50;
+    background: #6F6960;
     cursor: pointer;
   }

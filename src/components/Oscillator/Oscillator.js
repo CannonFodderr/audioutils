@@ -131,17 +131,19 @@ const Oscillator = ({audioCTX}) => {
         return(
             <div className="util">
                 <div className="utilControl">
-                    <div className="title">OSC</div>
-                    <button 
-                    className="btn play-stop-btn" 
-                    onClick={() => {
-                        if(wavForm === "white" || wavForm === "pink"){
-                            playNoise()
-                        } else {
-                            oscStartClickHandler()
-                        }
-                    }}
-                    >{buttonText}</button>
+                    <div className="title-wrapper">
+                        <div className="title">OSC</div>
+                        <button 
+                        className="btn play-stop-btn" 
+                        onClick={() => {
+                            if(wavForm === "white" || wavForm === "pink"){
+                                playNoise()
+                            } else {
+                                oscStartClickHandler()
+                            }
+                        }}
+                        >{buttonText}</button>
+                    </div>
                 </div>
                 <div className="utilControl freqControl">
                     <label htmlFor="freqInput">Frequncy: </label>

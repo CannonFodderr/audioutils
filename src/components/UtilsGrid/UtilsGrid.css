@@ -5,9 +5,11 @@
 }
 
 .util{
-    border: 1px solid #000;
+    border: 1px solid #222120;
     padding: 1vh 1vw;
+    background: #EFEEED;
 }
+
 @media only screen and (max-width: 800px) {
     .utilsGrid {
         grid-template-columns: 1fr 1fr 1fr;
