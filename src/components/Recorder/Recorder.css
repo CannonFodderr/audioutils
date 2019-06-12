@@ -1,0 +1,28 @@
+.content-wrapper{
+    margin: auto;
+    width: 30vh;
+    height: 30vh;
+    padding: 1vh;
+    display: grid;
+    gap: 1vh;
+    grid-template-columns: 1fr;
+}
+.btn-rec{
+    width: 100%;
+    height: 100%;
+    border-radius: 50%;
+    border: 1px dashed #222120;
+    font-size: 1.2rem;
+}
+
+.btn-rec:hover{
+    background: #F23005;
+}
+
+.btn-rec.recording{
+    background: #F23005;
+    color: #EFEEED;
+}
+.blob-player{
+    width: 100%;
+}

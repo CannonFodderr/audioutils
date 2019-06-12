@@ -2,6 +2,7 @@ import React from 'react'
 import './UtilsGrid.css'
 import Oscillator from '../Oscillator/Oscillator'
 import Player from '../Player/Player'
+import Recorder from '../Recorder/Recorder'
 
 const UtilsGrid = ({audioCTX}) => {
     return (
@@ -9,7 +10,7 @@ const UtilsGrid = ({audioCTX}) => {
         <div className="utilsGrid">
             <Oscillator audioCTX={audioCTX}/>
             <Player audioCTX={audioCTX}/>
-            <Oscillator audioCTX={audioCTX}/>
+            <Recorder audioCTX={audioCTX}/>
             <Oscillator audioCTX={audioCTX}/>
         </div>
         </>
