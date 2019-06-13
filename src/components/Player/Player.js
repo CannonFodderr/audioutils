@@ -1,7 +1,8 @@
 import React, {useState, useRef, useEffect} from 'react'
 import './Player.css'
+import Title from '../Title/Title'
 
-const Player = ({audioCTX}) => {
+const Player = ({audioCTX , index, handleUtilSelection}) => {
     const [currentTime, setCurrentTIme] = useState(0)
     const [playerGain, setPlayerGain] = useState(0.5)
     const [audioSource, setAudioSource] = useState(null)
@@ -150,13 +151,13 @@ const Player = ({audioCTX}) => {
             audioPlayerRef.current.muted = isMuted
             audioPlayerRef.current.pause()
         }
-    }, [isPlaying, currentTime, isLooping, isMuted])
+    }, [isPlaying, currentTime, isLooping, isMuted, playerGain])
     return(
         <>
             <div className="util">
                 <div className="utilControl playerControl">
                     <div className="title-wrapper">
-                        <div className="title">PLAYER</div>
+                        <Title text="PLAYER" index={index} handleUtilSelection={handleUtilSelection}/>
                         {renderLoadUload()}
                     </div>
                     {renderAudioPlayer()}

@@ -32,4 +32,5 @@ body{
     padding: 1vh;
     width: fit-content;
     display: inline-block;
+    cursor: pointer;
 }

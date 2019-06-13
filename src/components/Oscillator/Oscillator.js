@@ -1,7 +1,8 @@
 import React, {useState} from 'react'
 import './Oscillator.css'
+import Title from '../Title/Title'
 
-const Oscillator = ({audioCTX}) => {
+const Oscillator = ({audioCTX, index, handleUtilSelection}) => {
     const waveFormsArr = ["sine", "square", "sawtooth", "triangle", "white", "pink"]
     const [noiseNode] = useState(audioCTX.createScriptProcessor(4096, 1, 1))
     const [osc, setOSC] = useState(audioCTX.createOscillator())
@@ -132,7 +133,7 @@ const Oscillator = ({audioCTX}) => {
             <div className="util">
                 <div className="utilControl">
                     <div className="title-wrapper">
-                        <div className="title">OSC</div>
+                        <Title text="OSC" index={index} handleUtilSelection={handleUtilSelection}/>
                         <button 
                         className="btn play-stop-btn" 
                         onClick={() => {
@@ -179,7 +180,6 @@ const Oscillator = ({audioCTX}) => {
                 <div className="utilControl waveformsControl">
                     {renderWaveFormsList()}                                    
                 </div>
-                
             </div>
         )
     }

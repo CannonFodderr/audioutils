@@ -1,7 +1,8 @@
 import React, {useState, useEffect} from 'react'
 import './Recorder.css'
+import Title from '../Title/Title';
 
-const Recorder = ({audioCTX}) => {
+const Recorder = ({audioCTX, index, handleUtilSelection}) => {
     const [stream, setStream] = useState(null)
     const [recordedBlob, setRecordedBlob] = useState(null)
     const [recorder, setRecoreder] = useState(null)
@@ -27,12 +28,18 @@ const Recorder = ({audioCTX}) => {
     }
     const renderContent = () => {
         const className = isRecording ? "btn btn-rec recording" : "btn btn-rec"
+        const text = isRecording ? "Recording...": "REC"
         if(!recordedBlob){
             // Render Recorder
-            return <button 
-            className={className}
-            onClick={() => handleRecState()}
-            >REC</button>
+            return (
+                <div className="recorder-wrapper">
+                    <input type="range" min={0} max={100} className="input input-mon" />
+                    <button 
+                    className={className}
+                    onClick={() => handleRecState()}
+                    >{text}</button>
+                </div>
+            )
         }
         // Render Player
         return (
@@ -63,7 +70,7 @@ const Recorder = ({audioCTX}) => {
     return(
         <div className="util">
             <div className="titleWrapper">
-                <div className="title">RECORDER</div>
+                <Title text="RECORDER" index={index} handleUtilSelection={handleUtilSelection}/>
             </div>
             <div className="content-wrapper">
                 {renderContent()}

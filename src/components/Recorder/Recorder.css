@@ -9,8 +9,8 @@
 }
 .btn-rec{
     width: 100%;
-    height: 100%;
-    border-radius: 50%;
+    height: auto;
+    /* border-radius: 50%; */
     border: 1px dashed #222120;
     font-size: 1.2rem;
 }
@@ -25,4 +25,18 @@
 }
 .blob-player{
     width: 100%;
+}
+
+.recorder-wrapper{
+    display: grid;
+    gap: 1vh;
+    grid-template-columns: 1fr 3fr 1fr;
+}
+
+.input.input-mon{
+    
+    -webkit-appearance: slider-vertical; /* WebKit */
+    width: 8px;
+    height: 175px;
+    padding: 0 5px;
 }
